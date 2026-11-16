@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis System</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="logo">SA</div>
+            <h1>Sentiment Analysis System</h1>
+            <p>Understand the emotions behind your text using AI.</p>
+        </header>
+
+        <main class="card">
+
+            <h2>Analyze Your Text</h2>
+            <p class="subtitle">
+                Enter a review, comment or sentence below.
+            </p>
+
+            <form method="POST">
+
+                <textarea
+                    name="text"
+                    placeholder="Type your text here..."
+                    required>{{ original_text or '' }}</textarea>
+
+                <button type="submit">
+                    Analyze Sentiment
+                </button>
+
+            </form>
+
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if sentiment %}
+
+                <div class="result">
+
+                    <h3>Analysis Result</h3>
+
+                    <div class="sentiment {{ sentiment }}">
+                        {% if sentiment == "positive" %}
+                            😊 Positive
+                        {% elif sentiment == "negative" %}
+                            😠 Negative
+                        {% else %}
+                            😐 Neutral
+                        {% endif %}
+                    </div>
+
+                    <p>
+                        Model confidence:
+                        <strong>{{ confidence }}%</strong>
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </main>
+
+        <footer>
+            Powered by Python, Flask and Machine Learning
+        </footer>
+
+    </div>
+
+</body>
+</html>
